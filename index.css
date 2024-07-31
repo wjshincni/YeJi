@@ -1,0 +1,45 @@
+@keyframes intoFrame{
+    0%{top: 100%;opacity: 0;}
+    100%{top: 20rem;opacity: 1;}
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    height: 100%;
+    background-color: darkorange;
+}
+h1{
+    margin: 5rem auto;
+    color: white;
+    text-align: center;
+    text-shadow: 10px 10px 10px rgb(255, 182, 153); 
+}
+#bg{
+    top: 20rem;
+    width: 100%;
+    position: fixed;
+    animation: intoFrame 3s;
+}
+.normalBtn{
+    box-shadow: -5px -5px 10px palevioletred inset;
+    font-weight: bold;
+    font-size: large;
+    color: darkcyan;
+    background-color: pink;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    height: 60px;
+    z-index: 999;
+    position: fixed;
+    bottom: 10rem;
+    left: calc(50% - 50px);
+}
+.normalBtn:active{
+    left: calc(50% - 40px);
+    width: 90px;
+    bottom: calc(10rem + 5px);
+    height: 55px;
+}

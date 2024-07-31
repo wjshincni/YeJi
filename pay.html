@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请选择您的方案</title>
+    <style>
+        *{font-size: larger;}
+        body{padding-top: 10rem;}
+    </style>
+</head>
+<body style="text-align: center;background-color: cadetblue;color: white;">
+    所需人数<input type="number" value="3" style="width: 2rem;" id="mansNeed"><br><br>
+    所需局数<input type="number" value="1" style="width: 2rem;" id="turnsNeed"><br><br>
+    <span id="DisPlays"></span><br>
+    <button onclick="cal()">点我预估</button>
+    <button id="continuePay" onclick="window.open('QRcodes.html','_blank')" style="
+    display: none;    
+    box-shadow: -5px -5px 10px palevioletred inset;
+    font-weight: bold;
+    font-size: large;
+    color: darkcyan;
+    background-color: pink;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    height: 60px;
+    z-index: 999;
+    position: fixed;
+    bottom: 10rem;
+    left: calc(50% - 50px);"></button>
+</body>
+<script>
+    window.onload = function(){
+        alert('尊敬的老板，我们保证不会逃单，先付后打，死了重开，补老板装备！以下是野鸡护航俱乐部的收款基准：默认三人护航，45r/局，即15r/人/局，单次金额50r-100r打9折，100r-200r打8折，更高则打7折，您可以在数字框内选择您的需求，系统会预计出实付价格！');
+    }
+    function cal(){
+        var man = Number(document.getElementById('mansNeed').value);
+        var turn = Number(document.getElementById('turnsNeed').value);
+        var m = man,
+            t = turn;
+        if(m>3){DisPlay('所需人数最多只能是3人！','','err')}
+        else if(m<=0||t<=0){DisPlay('所需人数或所需局数最小只能是1！','','err')}
+        else{
+            var beforeP,
+                afterP;
+            beforeP = t * m * 15;
+            if(beforeP >= 50 && beforeP < 100){
+                afterP = 0.9 * beforeP;
+            }else
+            if(beforeP >=100 && beforeP < 200){
+                afterP = 0.8 * beforeP;
+            }else
+            if(beforeP >= 200){
+                afterP = 0.7 * beforeP;
+            }else{
+                afterP = beforeP;
+            }
+            DisPlay(beforeP,afterP,'normal')
+        }
+    }
+    function DisPlay(b,a,mode){
+        const dis = document.getElementById('DisPlays');
+        if(mode == 'err'){
+            dis.style.color = "red";
+            dis.innerHTML = "错误！" + b;
+        }
+        if(mode == 'normal'){
+            b = b + '';
+            a = a + '';
+            dis.style.color = 'yellow';
+            dis.innerHTML = '此方案的价格是<br><span style="color:gray">'+ b +'元</span>';
+            setTimeout(function(){
+                dis.innerHTML = '此方案的价格是<br><span style="color:gray;font-size:medium"><del>'+ b +'元</del></span><br><span style="color:red">'+ a +'元</span>';
+                var continuePay = document.getElementById('continuePay');
+                continuePay.innerHTML = '前往支付' + a + '元';
+                continuePay.style.display = 'inline-block';
+            },500)
+        }
+    }
+</script>
+</html>
