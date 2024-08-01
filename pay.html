@@ -10,7 +10,7 @@
     </style>
 </head>
 <body style="text-align: center;background-color: cadetblue;color: white;">
-    所需人数<input type="number" value="3" style="width: 2rem;" id="mansNeed"><br><br>
+    所需打手数<input type="number" value="3" style="width: 2rem;" id="mansNeed"><br><br>
     所需局数<input type="number" value="1" style="width: 2rem;" id="turnsNeed"><br><br>
     <span id="DisPlays"></span><br>
     <button onclick="cal()">点我预估</button>
@@ -43,7 +43,7 @@
         else if(m<=0||t<=0){DisPlay('所需人数或所需局数最小只能是1！','','err')}
         else{
             var beforeP,
-                afterP;
+                afterP,
             beforeP = t * m * 15;
             if(beforeP >= 50 && beforeP < 100){
                 afterP = 0.9 * beforeP;
@@ -56,10 +56,10 @@
             }else{
                 afterP = beforeP;
             }
-            DisPlay(beforeP,afterP,'normal')
+            DisPlay(beforeP,Math.floor(afterP),'normal',m * 250)
         }
     }
-    function DisPlay(b,a,mode){
+    function DisPlay(b,a,mode,M){
         const dis = document.getElementById('DisPlays');
         if(mode == 'err'){
             dis.style.color = "red";
@@ -68,10 +68,11 @@
         if(mode == 'normal'){
             b = b + '';
             a = a + '';
+            M = M + '';
             dis.style.color = 'yellow';
             dis.innerHTML = '此方案的价格是<br><span style="color:gray">'+ b +'元</span>';
             setTimeout(function(){
-                dis.innerHTML = '此方案的价格是<br><span style="color:gray;font-size:medium"><del>'+ b +'元</del></span><br><span style="color:red">'+ a +'元</span>';
+                dis.innerHTML = '此方案的价格是<br><span style="color:gray;font-size:medium"><del>'+ b +'元</del></span><br><span style="color:red">'+ a +'元</span><br><span style="color:pink">保底'+ M +'万/局！</span>';
                 var continuePay = document.getElementById('continuePay');
                 continuePay.innerHTML = '前往支付' + a + '元';
                 continuePay.style.display = 'inline-block';
